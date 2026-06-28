@@ -1,0 +1,175 @@
+/* ==========================================================
+   Turtle Surf — Chance IT Studio
+   Ocean one-button flapper. Same two-screen shell as the hub games:
+   menu owns difficulty + best; play is a full-bleed field under a
+   minimal strip. Seafoam-green brand thread on deep-water navy.
+   Vanilla CSS, no build step.
+   ========================================================== */
+:root{
+  --bg:#04141d; --panel:#0a212c; --panel-2:#0f2c39; --well:#06181f;
+  --surf:#1fe3a6;            /* seafoam brand accent (turtle) */
+  --surf-soft:rgba(31,227,166,0.14);
+  --coral:#ff7a52; --gold:#ffcf3a;
+  --ink:#e6f3f0; --ink-dim:#7fa3a0; --ink-faint:#4d6b69;
+  --line:rgba(31,227,166,0.12); --line-2:rgba(31,227,166,0.24);
+  --font-display:"Archivo",system-ui,sans-serif;
+  --font-stencil:"Saira Stencil One","Archivo",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:14px; --r-sm:9px;
+  --shadow:0 18px 40px -24px rgba(0,0,0,0.9);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0; color:var(--ink); font-family:var(--font-mono);
+  background:
+    radial-gradient(70% 45% at 50% -8%, rgba(31,227,166,0.08), transparent 60%),
+    var(--bg);
+  -webkit-font-smoothing:antialiased;
+  user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent;
+}
+
+/* ===== Two-screen shell ===== */
+body[data-screen="menu"] .play { display:none; }
+body[data-screen="play"] .menu { display:none; }
+
+/* ===== MENU ===== */
+.menu{ min-height:100vh; min-height:100dvh; display:grid; place-items:center; padding:18px; }
+.menu__card{
+  width:100%; max-width:520px; padding:24px; display:grid; gap:18px;
+  background:linear-gradient(180deg,var(--panel) 0%,#08202b 100%);
+  border:1px solid var(--line-2); border-radius:var(--r); box-shadow:var(--shadow);
+}
+.brand__eyebrow{
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.28em;
+  text-transform:uppercase; color:var(--ink-faint);
+}
+.brand__name{
+  font-family:var(--font-stencil); font-size:30px; letter-spacing:0.04em;
+  color:var(--ink); margin-top:4px; line-height:1;
+}
+.brand__name b{ color:var(--surf); font-weight:400; }
+.menu__hint{ margin:0; color:var(--ink-dim); line-height:1.55; }
+.menu__hint kbd, .overlay__hint kbd{
+  font-family:var(--font-mono); font-size:11px; padding:2px 6px;
+  border:1px solid var(--line-2); border-bottom-width:2px; border-radius:5px;
+  color:var(--ink); background:var(--well);
+}
+.menu__controls{ display:grid; gap:16px; }
+.field{ display:grid; gap:8px; }
+.field__label{
+  font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.16em;
+  text-transform:uppercase; color:var(--ink-dim);
+}
+.field__note{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); }
+
+/* segmented difficulty */
+.segmented{
+  display:inline-flex; background:var(--well);
+  border:1px solid var(--line); border-radius:var(--r-sm); padding:3px;
+}
+.segmented input{ position:absolute; opacity:0; pointer-events:none; }
+.segmented label{
+  font-family:var(--font-display); font-weight:700; font-size:13px; letter-spacing:0.03em;
+  padding:8px 16px; border-radius:6px; color:var(--ink-dim); cursor:pointer;
+  transition:color .12s, background .12s; flex:1; text-align:center;
+}
+.segmented input:checked + label{ color:var(--bg); background:var(--surf); }
+.segmented input:focus-visible + label{ outline:2px solid var(--surf); outline-offset:2px; }
+
+/* best record */
+.records{ display:flex; }
+.record{
+  flex:1; padding:8px 12px 9px; background:var(--well);
+  border:1px solid var(--line); border-radius:var(--r-sm);
+}
+.record__label{
+  font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.16em;
+  text-transform:uppercase; color:var(--ink-dim);
+  display:flex; align-items:center; gap:6px;
+}
+.record__label::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--surf); }
+.record__value{ font-family:var(--font-mono); font-size:14px; margin-top:3px; color:var(--ink); }
+.record__value .dim{ color:var(--ink-faint); }
+
+.menu__actions{ display:flex; gap:9px; align-items:center; }
+.menu__actions .btn--primary{ flex:1; }
+.menu__foot{
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:0.06em; color:var(--ink-faint);
+}
+.menu__foot a{ color:var(--ink-dim); text-decoration:none; }
+.menu__foot a:hover{ color:var(--surf); }
+
+/* ===== buttons / mute (shared) ===== */
+.btn{
+  font-family:var(--font-display); font-weight:800; font-size:14px; letter-spacing:0.03em;
+  padding:11px 22px; border:0; border-radius:var(--r-sm); cursor:pointer;
+  transition:transform .08s, filter .12s;
+}
+.btn:active{ transform:translateY(1px); }
+.btn--primary{ background:var(--surf); color:var(--bg); }
+.btn--primary:hover{ filter:brightness(1.07); box-shadow:0 0 18px -4px var(--surf-soft); }
+.btn--ghost{ background:transparent; color:var(--ink-dim); border:1px solid var(--line-2); }
+.btn--ghost:hover{ color:var(--ink); border-color:var(--surf); }
+.mute{
+  width:40px; height:40px; display:grid; place-items:center; flex:none;
+  border-radius:var(--r-sm); border:1px solid var(--line-2);
+  background:var(--well); color:var(--ink-dim); cursor:pointer; font-size:17px; line-height:1;
+}
+.mute:hover{ color:var(--ink); }
+.mute.is-muted{ color:var(--ink-faint); text-decoration:line-through; }
+
+/* ===== PLAY ===== */
+.play{ height:100vh; height:100dvh; display:grid; grid-template-rows:auto 1fr; }
+.strip{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  height:48px; padding:0 14px; border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#0b232f,#08202b);
+}
+.strip__title{ font-family:var(--font-stencil); font-size:18px; letter-spacing:0.05em; color:var(--ink); }
+.strip__title span{ color:var(--surf); }
+.strip__stats{ display:flex; gap:16px; }
+.stat{ display:flex; align-items:baseline; gap:6px; }
+.stat__k{ font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:var(--ink-dim); }
+.stat__v{ font-weight:700; font-size:18px; color:var(--surf); font-variant-numeric:tabular-nums; min-width:16px; text-align:right; }
+
+.stage{ position:relative; width:100%; height:100%; overflow:hidden; }
+canvas{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+
+/* ===== overlay (ready / over) ===== */
+.overlay{
+  position:absolute; inset:0; display:none; place-items:center;
+  background:rgba(4,12,18,0.55); backdrop-filter:blur(4px); padding:18px; z-index:3;
+}
+.overlay.is-ready{ background:rgba(4,12,18,0.18); backdrop-filter:none; cursor:pointer; }
+.overlay__card{
+  max-width:440px; width:100%; text-align:center;
+  background:linear-gradient(180deg,var(--panel),#08202b);
+  border:1px solid var(--line-2); border-radius:var(--r);
+  padding:22px 24px; box-shadow:var(--shadow);
+}
+.overlay.is-ready .overlay__card{ background:transparent; border:0; box-shadow:none; }
+.overlay__eyebrow{
+  font-family:var(--font-mono); font-size:10px; letter-spacing:0.26em;
+  text-transform:uppercase; color:var(--surf);
+}
+.overlay__title{
+  font-family:var(--font-stencil); font-weight:400;
+  font-size:clamp(30px,8vmin,48px); letter-spacing:0.04em; margin:6px 0 10px;
+  color:var(--ink); text-shadow:0 0 22px rgba(31,227,166,0.4);
+}
+.overlay__title.is-best{ color:var(--surf); }
+.overlay__title.is-over{ color:var(--coral); text-shadow:0 0 24px rgba(255,122,82,0.45); }
+.overlay__text{ margin:7px 0; line-height:1.5; color:var(--ink-dim); }
+.overlay__text strong{ color:var(--ink); }
+.results{ display:grid; grid-template-columns:repeat(auto-fit,minmax(94px,1fr)); gap:9px; margin:14px 0 4px; }
+.results__cell{ background:var(--well); border:1px solid var(--line); border-radius:var(--r-sm); padding:9px 11px; }
+.results__k{ font-family:var(--font-mono); font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-dim); }
+.results__v{ font-family:var(--font-mono); font-weight:700; font-size:20px; margin-top:2px; color:var(--ink); font-variant-numeric:tabular-nums; }
+.overlay__actions{ display:flex; gap:9px; margin-top:16px; }
+.overlay__actions .btn{ flex:1; }
+.overlay__hint{ margin-top:14px; font-size:12px; color:var(--ink-faint); }
+
+@media (prefers-reduced-motion:reduce){
+  .btn{ transition:none; }
+}

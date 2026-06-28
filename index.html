@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Turtle Surf · Chance IT Studio</title>
+  <meta name="description" content="Glide an ocean turtle through gaps in the reef. One button — tap, click, or space to swim. Built by ChanceITstudio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Saira+Stencil+One&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body data-screen="menu">
+  <!-- ===== MENU · options + best ===== -->
+  <section class="menu" aria-label="Menu">
+    <div class="menu__card">
+      <div class="brand">
+        <div class="brand__eyebrow">Chance IT Studio</div>
+        <div class="brand__name">TURTLE&nbsp;<b>SURF</b></div>
+      </div>
+
+      <p class="menu__hint" id="menuHint">Tap, click, or <kbd>Space</kbd> to swim up. Glide through the gaps in the reef — don't clip the coral or hit the seabed.</p>
+
+      <div class="menu__controls">
+        <div class="field">
+          <span class="field__label">Current</span>
+          <div class="segmented" role="radiogroup" aria-label="Difficulty">
+            <input type="radio" name="diff" id="diffCalm" value="calm" checked />
+            <label for="diffCalm">Calm</label>
+            <input type="radio" name="diff" id="diffReef" value="reef" />
+            <label for="diffReef">Reef</label>
+            <input type="radio" name="diff" id="diffRip" value="riptide" />
+            <label for="diffRip">Riptide</label>
+          </div>
+          <span class="field__note" id="diffNote">Wide gaps, gentle current.</span>
+        </div>
+      </div>
+
+      <div class="records" aria-label="Best">
+        <div class="record">
+          <div class="record__label">Best · <span id="bestMode">Calm</span></div>
+          <div class="record__value" id="bestValue"><span class="dim">no run yet</span></div>
+        </div>
+      </div>
+
+      <div class="menu__actions">
+        <button id="muteBtn" class="mute" type="button" aria-label="Toggle sound" title="Sound on/off">♪</button>
+        <button id="startBtn" class="btn btn--primary" type="button">Start</button>
+      </div>
+
+      <div class="menu__foot">TURTLE SURF · one button · <a href="https://chanceitstudio.com" target="_blank" rel="noopener">chanceitstudio.com</a></div>
+    </div>
+  </section>
+
+  <!-- ===== PLAY · minimal strip + field ===== -->
+  <section class="play" aria-label="Play">
+    <header class="strip">
+      <div class="strip__title">TURTLE&nbsp;<span>SURF</span></div>
+      <div class="strip__stats">
+        <div class="stat"><span class="stat__k">Score</span><span class="stat__v" id="score">0</span></div>
+        <div class="stat"><span class="stat__k">Best</span><span class="stat__v" id="best">0</span></div>
+      </div>
+    </header>
+
+    <section class="stage" id="stage" aria-label="Play area">
+      <canvas id="game"></canvas>
+      <div id="overlay" class="overlay" aria-live="polite"></div>
+    </section>
+  </section>
+
+  <script src="hub-bridge.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
