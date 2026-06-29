@@ -333,20 +333,37 @@ function colBody(x, ry, w, h, isTop) {
   ctx.strokeStyle = C.surf; ctx.lineWidth = 2 * S; ctx.globalAlpha = 0.6;
   ctx.beginPath(); ctx.moveTo(x, edgeY); ctx.lineTo(x + w, edgeY); ctx.stroke(); ctx.globalAlpha = 1;
 }
-function flipper(fx, fy, rx, ry, rot, color) {
+function paddle(fx, fy, len, wid, rot, color) {
+  // long tapered sea-turtle flipper, drawn along +x from its root
   ctx.save(); ctx.translate(fx, fy); ctx.rotate(rot);
-  ctx.fillStyle = color; ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(0, -wid * 0.5);
+  ctx.quadraticCurveTo(len * 0.55, -wid, len, -wid * 0.22);
+  ctx.quadraticCurveTo(len * 1.06, 0, len, wid * 0.22);
+  ctx.quadraticCurveTo(len * 0.55, wid, 0, wid * 0.5);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+function scute(cx, cy, r, n, rot) {
+  ctx.beginPath();
+  for (let i = 0; i < n; i++) {
+    const an = rot + (i * Math.PI * 2) / n;
+    const px = cx + Math.cos(an) * r, py = cy + Math.sin(an) * r * 0.86;
+    i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
+  }
+  ctx.closePath();
 }
 function drawTurtle(x, cy, a, t) {
   const s = S, swim = Math.sin(t * 9) * 0.5;
   ctx.save(); ctx.translate(x, cy); ctx.rotate(a);
   ctx.shadowColor = C.surf; ctx.shadowBlur = 16;
-  // back flippers
-  flipper(-13 * s, 11 * s, 8 * s, 4.5 * s, -0.5 + swim * 0.5, C.emerald);
-  flipper(-13 * s, -11 * s, 8 * s, 4.5 * s, 0.5 - swim * 0.5, C.emerald);
-  // front flippers
-  flipper(9 * s, 13 * s, 13 * s, 6 * s, 0.55 + swim, C.surf);
-  flipper(9 * s, -13 * s, 13 * s, 6 * s, -0.55 - swim, C.surf);
+  // rear flippers — short paddles sweeping back
+  paddle(-14 * s, 9 * s,  16 * s, 7 * s,  2.55 - swim * 0.3, C.emerald);
+  paddle(-14 * s, -9 * s, 16 * s, 7 * s, -2.55 + swim * 0.3, C.emerald);
+  // front flippers — long sea-turtle paddles sweeping out and back
+  paddle(8 * s, 8 * s,  30 * s, 11 * s,  2.25 - swim * 0.4, C.surf);
+  paddle(8 * s, -8 * s, 30 * s, 11 * s, -2.25 + swim * 0.4, C.surf);
   // tail
   ctx.fillStyle = C.emerald;
   ctx.beginPath(); ctx.moveTo(-23 * s, 0); ctx.lineTo(-30 * s, -5 * s); ctx.lineTo(-30 * s, 5 * s); ctx.closePath(); ctx.fill();
@@ -354,12 +371,20 @@ function drawTurtle(x, cy, a, t) {
   const g = ctx.createRadialGradient(-4 * s, -6 * s, 2 * s, 0, 0, 26 * s);
   g.addColorStop(0, C.foam); g.addColorStop(0.4, C.surf); g.addColorStop(1, C.emerald);
   ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(0, 0, 26 * s, 19 * s, 0, 0, Math.PI * 2); ctx.fill();
-  // scutes
-  ctx.shadowBlur = 0; ctx.strokeStyle = "rgba(3,32,24,0.5)"; ctx.lineWidth = 1.5 * s;
-  ctx.beginPath();
-  for (let i = -1; i <= 1; i++) { ctx.moveTo(i * 9 * s, -13 * s); ctx.lineTo(i * 9 * s, 13 * s); }
-  ctx.ellipse(0, 0, 16 * s, 11 * s, 0, 0, Math.PI * 2);
-  ctx.stroke();
+  // scutes — hex/pentagon carapace plates
+  ctx.shadowBlur = 0; ctx.lineJoin = "round";
+  ctx.strokeStyle = "rgba(3,32,24,0.55)"; ctx.lineWidth = 1.4 * s;
+  const plates = [
+    [9 * s, 0, 6 * s, 6], [0, 0, 6.6 * s, 6], [-9 * s, 0, 6 * s, 6],   // central row (hex)
+    [3 * s, -9.5 * s, 5.4 * s, 5], [-6 * s, -9 * s, 5 * s, 5],         // upper costals (pent)
+    [3 * s, 9.5 * s, 5.4 * s, 5], [-6 * s, 9 * s, 5 * s, 5],           // lower costals (pent)
+    [16 * s, 0, 4.6 * s, 5], [-17 * s, 0, 4.4 * s, 5],                 // front / back marginals
+  ];
+  for (const [px, py, pr, pn] of plates) {
+    scute(px, py, pr, pn, pn === 6 ? 0 : -Math.PI / 2);
+    ctx.fillStyle = "rgba(12,143,104,0.18)"; ctx.fill();
+    ctx.stroke();
+  }
   // head + eye
   ctx.shadowColor = C.surf; ctx.shadowBlur = 12; ctx.fillStyle = C.surf;
   ctx.beginPath(); ctx.ellipse(26 * s, 0, 9 * s, 7 * s, 0, 0, Math.PI * 2); ctx.fill();

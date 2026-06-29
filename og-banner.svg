@@ -1,0 +1,74 @@
+<svg width="680" height="300" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Turtle Surf banner</title>
+<desc>A sea turtle with a hexagonal-plated shell and long flippers glides toward a reef gap over deep ocean water, beside the Turtle Surf wordmark.</desc>
+<defs>
+<linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#083247"/>
+<stop offset="0.55" stop-color="#04161f"/>
+<stop offset="1" stop-color="#02090d"/>
+</linearGradient>
+<radialGradient id="shell" cx="0.38" cy="0.34" r="0.75">
+<stop offset="0" stop-color="#e6fff6"/>
+<stop offset="0.45" stop-color="#1fe3a6"/>
+<stop offset="1" stop-color="#0c8f68"/>
+</radialGradient>
+<polygon id="hex" points="20,0 10,14.9 -10,14.9 -20,0 -10,-14.9 10,-14.9"/>
+<polygon id="pent" points="0,-15.48 17.12,-4.78 10.58,12.52 -10.58,12.52 -17.12,-4.78"/>
+</defs>
+
+<rect x="0" y="0" width="680" height="300" fill="url(#water)"/>
+
+<g opacity="0.85">
+<polygon points="60,0 96,0 150,300 96,300" fill="#1fe3a6" opacity="0.04"/>
+<polygon points="300,0 330,0 410,300 350,300" fill="#1fe3a6" opacity="0.035"/>
+<polygon points="500,0 540,0 590,300 540,300" fill="#1fe3a6" opacity="0.03"/>
+</g>
+
+<g fill="#1fe3a6">
+<circle cx="120" cy="70" r="2.5" opacity="0.12"/>
+<circle cx="180" cy="210" r="3" opacity="0.1"/>
+<circle cx="250" cy="120" r="2" opacity="0.14"/>
+<circle cx="360" cy="60" r="2.6" opacity="0.1"/>
+<circle cx="300" cy="250" r="3.4" opacity="0.09"/>
+<circle cx="430" cy="200" r="2.2" opacity="0.12"/>
+<circle cx="560" cy="90" r="2.8" opacity="0.1"/>
+<circle cx="610" cy="240" r="2.4" opacity="0.11"/>
+<circle cx="520" cy="160" r="2" opacity="0.13"/>
+</g>
+
+<g>
+<rect x="612" y="0" width="46" height="118" rx="8" fill="#063140"/>
+<rect x="612" y="190" width="46" height="110" rx="8" fill="#063140"/>
+<rect x="608" y="108" width="54" height="12" rx="6" fill="#ff7a52"/>
+<rect x="608" y="190" width="54" height="12" rx="6" fill="#ff7a52"/>
+<line x1="612" y1="118" x2="658" y2="118" stroke="#1fe3a6" stroke-width="2" opacity="0.55"/>
+<line x1="612" y1="190" x2="658" y2="190" stroke="#1fe3a6" stroke-width="2" opacity="0.55"/>
+</g>
+
+<g transform="translate(455,152) scale(1.15)">
+<path d="M0,-9 Q22,-18 40,-4 Q43,0 40,4 Q22,18 0,9 Z" fill="#0c8f68" transform="translate(-46,-18) rotate(250)"/>
+<path d="M0,-9 Q22,-18 40,-4 Q43,0 40,4 Q22,18 0,9 Z" fill="#0c8f68" transform="translate(-46,18) rotate(110)"/>
+<path d="M0,-15 Q43,-30 78,-6.6 Q83,0 78,6.6 Q43,30 0,15 Z" fill="#1fe3a6" transform="translate(24,-22) rotate(290)"/>
+<path d="M0,-15 Q43,-30 78,-6.6 Q83,0 78,6.6 Q43,30 0,15 Z" fill="#1fe3a6" transform="translate(24,22) rotate(70)"/>
+<polygon points="-70,-7 -70,7 -86,0" fill="#0c8f68"/>
+<ellipse cx="0" cy="0" rx="70" ry="52" fill="url(#shell)"/>
+<g fill="#0c8f68" fill-opacity="0.22" stroke="#06241b" stroke-width="1.6" stroke-linejoin="round">
+<use href="#hex" transform="translate(30,0)"/>
+<use href="#hex" transform="translate(0,0) scale(1.1)"/>
+<use href="#hex" transform="translate(-30,0)"/>
+<use href="#pent" transform="translate(10,-30) scale(0.95)"/>
+<use href="#pent" transform="translate(-24,-28) scale(0.85)"/>
+<use href="#pent" transform="translate(10,30) scale(0.95)"/>
+<use href="#pent" transform="translate(-24,28) scale(0.85)"/>
+<use href="#pent" transform="translate(54,0) scale(0.7)"/>
+<use href="#pent" transform="translate(-56,0) scale(0.7)"/>
+</g>
+<ellipse cx="70" cy="0" rx="20" ry="15" fill="#1fe3a6"/>
+<circle cx="78" cy="-5" r="5" fill="#e6fff6"/>
+<circle cx="80" cy="-5" r="2.4" fill="#04141d"/>
+</g>
+
+<text x="48" y="118" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="13" letter-spacing="4" fill="#7fa3a0">CHANCE IT STUDIO</text>
+<text x="46" y="178" font-family="'Archivo', system-ui, sans-serif" font-size="58" font-weight="800" letter-spacing="1" fill="#e6fff6">Turtle<tspan fill="#1fe3a6"> Surf</tspan></text>
+<text x="48" y="212" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="15" letter-spacing="1" fill="#7fa3a0">Glide the reef — one button</text>
+</svg>
